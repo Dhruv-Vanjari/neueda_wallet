@@ -16,11 +16,8 @@ public class TransactionServiceImpl implements TransactionServiceInterface {
     }
 
     @Override
-//    public List<Transaction> getTransactionsByWalletId(Long walletId) {
-//        return List.of();
-//    }
     public List<Transaction> getTransactionsByWalletId(Long walletId) {
-        return null;
+        return List.of();
     }
 
     @Override
