@@ -12,6 +12,7 @@ public class Transaction {
 
     private TransactionType type;
     private LocalDateTime timestamp;
+    private Long userId;
 
 
     private Wallet wallet;
@@ -22,4 +23,28 @@ public class Transaction {
         this.amount = amount;
         this.id = id;
     }
+
+
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public TransactionType getType() {
+        return type;
+    }
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
 }

@@ -10,7 +10,7 @@ public interface UserServiceInterface {
     User getUserById(Long userId);
     User getUserByName(String name);
 
-    void DeleteUser(Long userId);
+    void deleteUser(Long userId);
 
     User addWalletToUser(Long userId, Wallet wallet);
     void removeWalletFromUser(Long userId, Long walletId);

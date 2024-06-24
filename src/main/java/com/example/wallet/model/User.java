@@ -64,4 +64,7 @@ public class User {
     public void removeWallet(Wallet wallet) {
         wallets.remove(wallet);
     }
+    public List<Wallet> getWallets() {
+        return wallets;
+    }
 }

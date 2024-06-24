@@ -36,7 +36,7 @@ public class UserServiceTest
 
         @Test
     public void testGetUserById() {
-            User user = userService.getUserById(223344L);
+            User user = userService.getUserById(123123L);
             assertThat(user).isNotNull();
 
             assertThat(user.getId()).isEqualTo(123123L);

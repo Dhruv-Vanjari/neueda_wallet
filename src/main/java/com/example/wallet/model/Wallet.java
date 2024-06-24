@@ -1,5 +1,8 @@
 package com.example.wallet.model;
 
+import com.example.wallet.model.User;
+import com.example.wallet.model.TransactionType;
+import com.example.wallet.service.UserServiceImpl;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,24 +15,42 @@ public class Wallet {
     private String currency;
 
 
-    private User user;
+    private Long userId;
 
-    private List<Transaction> transactions = new ArrayList<>();
+
+
+
+
+
+
+    private final List<Transaction> transactions = new ArrayList<>();
 
     // Getters and Setters
 
-    public Wallet(String name, Long id, String currency, User user) {
+    public Wallet(String name, Long id, String currency, Long userId) {
         this.name = name;
         this.id = id;
         this.currency = currency;
-        this.user = user;
+        this.userId = userId;
 
         this.balance = 0;
     }
 
+
+
+
+
     public String getName() {
         return name;
     }
+    public Long getId() {
+        return id;
+    }
+    public Long getUserId() {
+        return userId;
+    }
+
+
 
     public void setName(String name) {
         this.name = name;
@@ -58,4 +79,6 @@ public class Wallet {
     public void removeWallet(Transaction transaction) {
         transactions.remove(transaction);
     }
+
+
 }
