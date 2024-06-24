@@ -1,12 +1,17 @@
 package com.example.wallet;
 
 import com.example.wallet.model.Transaction;
+import com.example.wallet.model.User;
 import com.example.wallet.model.Wallet;
 import com.example.wallet.model.TransactionType;
+import com.example.wallet.service.UserServiceImpl;
 import com.example.wallet.service.WalletServiceImpl;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -20,28 +25,42 @@ public class WalletServiceTest {
     @Autowired
     WalletServiceImpl walletService;
 
+    @Autowired
+    UserServiceImpl userService;
+
+    @DirtiesContext
+    @BeforeEach
+    public void setup() {
+        User user = new User(123123L, "vanjaridhruv", "vanjaridhruv@gmail.com", "qwertyui");
+        userService.createUser(user);
+    }
+
+    @DirtiesContext
     @Test
     public void testCreateWallet() {
-        Wallet wallet = new Wallet("citi1", 1L, "INR", 123L);
+        Wallet wallet = new Wallet("citi1", 1L, "INR", 123123L);
         assertThat(walletService.createWallet(wallet)).isEqualTo(true);
     }
 
+    @DirtiesContext
     @Test
     public void testDeleteWallet() {
-        Wallet wallet = new Wallet("citi2", 2L, "INR", 123L);
+        Wallet wallet = new Wallet("citi2", 2L, "INR", 123123L);
         walletService.createWallet(wallet);
         walletService.deleteWallet(2L);
         assertThrows(NoSuchElementException.class, () -> walletService.getWalletById(2L));
     }
 
+    @DirtiesContext
     @Test
     public void testGetBalance() {
-        Wallet wallet = new Wallet("citi3", 3L, "INR", 123L);
+        Wallet wallet = new Wallet("citi3", 3L, "INR", 123123L);
         wallet.setBalance(500);
         walletService.createWallet(wallet);
         assertThat(walletService.getBalance(3L)).isEqualTo(500);
     }
 
+    @DirtiesContext
     @Test
     public void testGetWalletById() {
         Wallet wallet = new Wallet("Tanaya", 4L, "INR", 123123L);
@@ -51,19 +70,22 @@ public class WalletServiceTest {
         assertThat(retrievedWallet.getId()).isEqualTo(4L);
     }
 
-//    @Test
-//    public void testGetWalletsByUserId() {
-//        Wallet wallet1 = new Wallet("citi4", 5L, "INR", 123123L);
-//        Wallet wallet2 = new Wallet("citi5", 6L, "INR", 123123L);
-//        walletService.createWallet(wallet1);
-//        walletService.createWallet(wallet2);
-//        List<Wallet> wallets = walletService.getWalletsByUserId(123L);
-//        assertThat(wallets).hasSize(2);
-//    }
+    @DirtiesContext
+    @Test
+    public void testGetWalletsByUserId() {
+        Wallet wallet1 = new Wallet("citi4", 5L, "INR", 123123L);
+        Wallet wallet2 = new Wallet("citi5", 6L, "INR", 123123L);
+        walletService.createWallet(wallet1);
+        walletService.createWallet(wallet2);
+        List<Wallet> wallets = walletService.getWalletsByUserId(123123L);
+        assertThat(wallets).hasSize(2);
 
+    }
+
+    @DirtiesContext
     @Test
     public void testDeposit() {
-        Wallet wallet = new Wallet("citi6", 7L, "INR", 123L);
+        Wallet wallet = new Wallet("citi6", 7L, "INR", 123123L);
         walletService.createWallet(wallet);
         Transaction transaction = walletService.deposit(7L, 100);
         assertThat(transaction).isNotNull();
@@ -72,9 +94,10 @@ public class WalletServiceTest {
         assertThat(walletService.getBalance(7L)).isEqualTo(100);
     }
 
+    @DirtiesContext
     @Test
     public void testWithdraw() {
-        Wallet wallet = new Wallet("Dhruv", 8L, "INR", 123L);
+        Wallet wallet = new Wallet("Dhruv", 8L, "INR", 123123L);
         wallet.setBalance(200);
         walletService.createWallet(wallet);
         Transaction transaction = walletService.withdraw(8L, 100);
@@ -84,9 +107,10 @@ public class WalletServiceTest {
         assertThat(walletService.getBalance(8L)).isEqualTo(100);
     }
 
+    @DirtiesContext
     @Test
     public void testWithdrawInsufficientBalance() {
-        Wallet wallet = new Wallet("citi7", 9L, "INR", 123L);
+        Wallet wallet = new Wallet("citi7", 9L, "INR", 123123L);
         wallet.setBalance(50);
         walletService.createWallet(wallet);
         assertThrows(IllegalArgumentException.class, () -> walletService.withdraw(9L, 100));

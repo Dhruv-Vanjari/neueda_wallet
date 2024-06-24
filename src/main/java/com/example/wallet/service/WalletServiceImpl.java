@@ -2,7 +2,9 @@ package com.example.wallet.service;
 
 import com.example.wallet.model.Transaction;
 import com.example.wallet.model.TransactionType;
+import com.example.wallet.model.User;
 import com.example.wallet.model.Wallet;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,9 +18,15 @@ public class WalletServiceImpl implements WalletServiceInterface {
     private final List<Wallet> walletsList = new ArrayList<>();
     private Long transactionCounter = 0L;
 
+    @Autowired
+    UserServiceImpl userService;
+
     @Override
     public Boolean createWallet(Wallet wallet) {
         walletsList.add(wallet);
+
+        userService.addWalletToUser(wallet.getUserId(), wallet);
+
         return true;
     }
 
@@ -26,6 +34,8 @@ public class WalletServiceImpl implements WalletServiceInterface {
     public void deleteWallet(Long walletId) {
         Wallet wallet = getWalletById(walletId);
         walletsList.remove(wallet);
+
+        userService.removeWalletFromUser(wallet.getUserId(), walletId);
     }
 
     @Override

@@ -3,11 +3,17 @@ package com.example.wallet.service;
 import com.example.wallet.model.Transaction;
 import com.example.wallet.model.TransactionType;
 import com.example.wallet.model.Wallet;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Service
 public class TransactionServiceImpl implements TransactionServiceInterface {
+
+    @Autowired
+    WalletServiceImpl walletService;
 
     @Override
     public Transaction transfer(Long fromWalletId, Long toWalletId, Integer amount) {
@@ -22,13 +28,13 @@ public class TransactionServiceImpl implements TransactionServiceInterface {
     private Transaction withdraw(Long walletId, Integer amount) {
         // Implement logic to withdraw amount from wallet
         // For simplicity, returning a dummy transaction here
-        return new Transaction(LocalDateTime.now(), TransactionType.WITHDRAWAL, -amount, 1L);
+        return walletService.withdraw(walletId, amount);
     }
 
-    private Transaction deposit(Long walletId, Integer amount) {
+    public Transaction deposit(Long walletId, Integer amount) {
         // Implement logic to deposit amount to wallet
         // For simplicity, returning a dummy transaction here
-        return new Transaction(LocalDateTime.now(), TransactionType.DEPOSIT, amount, 2L);
+        return walletService.deposit(walletId, amount);
     }
 
     @Override
@@ -40,13 +46,9 @@ public class TransactionServiceImpl implements TransactionServiceInterface {
 
     @Override
     public List<Transaction> getTransactionsByWalletId(Long walletId) {
-        // Implement logic to fetch transactions associated with a specific wallet ID
-        // For simplicity, returning null as placeholder
+        Wallet wallet = walletService.getWalletById(walletId);
+        return wallet.getTransactions();
 
-        // Implement logic to fetch transactions by wallet ID
-        // Example implementation:
-
-        return null;
     }
 
 

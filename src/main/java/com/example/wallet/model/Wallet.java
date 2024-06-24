@@ -80,5 +80,8 @@ public class Wallet {
         transactions.remove(transaction);
     }
 
+    public List<Transaction> getTransactions() {
+        return this.transactions;
+    }
 
 }

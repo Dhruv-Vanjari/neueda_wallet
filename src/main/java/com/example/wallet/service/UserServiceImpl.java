@@ -30,11 +30,14 @@ public class UserServiceImpl implements UserServiceInterface {
     @Override
     public User getUserByName(String name) {
         // Implementation goes here
-        return null;
+        return usersList.stream()
+                .filter(user -> user.getUsername().equals(name))
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException("User not found with id " + name));
     }
 
     @Override
-    public void deleteUser(Long userId) {
+    public void deleteUser(Long userId) throws NoSuchElementException {
         User user = getUserById(userId);
         usersList.remove(user);
     }
