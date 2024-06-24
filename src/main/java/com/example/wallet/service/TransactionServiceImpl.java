@@ -40,8 +40,13 @@ public class TransactionServiceImpl implements TransactionServiceInterface {
 
     @Override
     public List<Transaction> getTransactionsByWalletId(Long walletId) {
+        // Implement logic to fetch transactions associated with a specific wallet ID
+        // For simplicity, returning null as placeholder
 
+        // Implement logic to fetch transactions by wallet ID
+        // Example implementation:
 
+        return null;
 
     }
 
