@@ -5,7 +5,7 @@ import com.example.wallet.model.Wallet;
 
 public interface UserServiceInterface {
 
-    Boolean createUser(User user);
+    User createUser(User user);
 
     User getUserById(Long userId);
     User getUserByName(String name);

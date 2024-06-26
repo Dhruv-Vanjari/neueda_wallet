@@ -14,9 +14,9 @@ public class UserServiceImpl implements UserServiceInterface {
     private final List<User> usersList = new ArrayList<>();
 
     @Override
-    public Boolean createUser(User user) {
+    public User createUser(User user) {
         usersList.add(user);
-        return true;
+        return user;
     }
 
     @Override
