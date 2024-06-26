@@ -26,8 +26,14 @@ public class WalletControllerTest {
     @DirtiesContext
     @Test
     public void testCreateWallet() {
-        Wallet wallet = new Wallet("citi1", 1L, "INR", 123123L);
+        Wallet wallet = new Wallet("icici1", 156L, "INR", 1231234L);
         ResponseEntity<Boolean> response = restTemplate.postForEntity("/api/wallets", wallet, Boolean.class);
+
+        // Debugging
+        System.out.println("Response Status Code: " + response.getStatusCode());
+        System.out.println("Response Body: " + response.getBody());
+
+        // Assertions
         assertThat(response.getStatusCode().is2xxSuccessful()).isTrue();
         assertThat(response.getBody()).isEqualTo(true);
     }

@@ -56,8 +56,14 @@ public class UserServiceTest
     @DirtiesContext
     @Test
     public void testCreateUser() {
-        User user = new User(123123L, "vanjaridhruv", "vanjaridhruv@gmail.com", "qwertyui");
-        assertThat(userService.createUser(user)).isEqualTo(true);
+        User user = new User(1231234L, "vanjaridhruv4", "vanjaridhruv4@gmail.com", "qwertyui");
+        User createdUser = userService.createUser(user);
+
+        assertThat(createdUser).isNotNull();
+        assertThat(createdUser.getId()).isEqualTo(user.getId());
+        assertThat(createdUser.getUsername()).isEqualTo(user.getUsername());
+        assertThat(createdUser.getEmail()).isEqualTo(user.getEmail());
+        assertThat(createdUser.getPassword()).isEqualTo(user.getPassword());
     }
 
     @DirtiesContext
