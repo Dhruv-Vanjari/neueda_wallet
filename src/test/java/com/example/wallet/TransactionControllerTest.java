@@ -74,15 +74,23 @@ public class TransactionControllerTest {
     }
 
     @Test
+   
+
     public void testDeposit() {
+        // Prepare the URL for deposit
         String url = "http://localhost:" + port + "/transactions/deposit?walletId=4545&amount=50";
+
+        // Make the deposit request
         ResponseEntity<Transaction> response = restTemplate.postForEntity(url, null, Transaction.class);
 
+        // Assert the response status code is 200 OK
         assertThat(response.getStatusCodeValue()).isEqualTo(200);
 
+        // Assert the balance after deposit is correct
         assertThat(walletService.getBalance(4545L)).isEqualTo(80);
 
-        assertThat(transactionService.getTransactionsByWalletId(4545L)).hasSize(4);
+        // Assert the number of transactions for the wallet is correct
+        assertThat(transactionService.getTransactionsByWalletId(4545L)).hasSize(4); // Adjust this based on your expected number of transactions
     }
 
     @Test
