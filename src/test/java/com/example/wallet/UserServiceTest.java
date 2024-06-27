@@ -39,7 +39,7 @@ public class UserServiceTest
     @DirtiesContext
     @BeforeEach
     public void setup() {
-        User user1 = new User(123123L, "vanjaridhruv", "vanjaridhruv@gmail.com", "qwertyui");
+        User user1 = new User(1231234L, "vanjaridhruv", "vanjaridhruv@gmail.com", "qwertyui");
         User user2 = new User(456789L, "shelketanaya", "anjaridhruv@gmail.com", "asdfghj");
         User user3 =new User(789789L, "prerak", "prerak@gmail.com", "123456789");
 
