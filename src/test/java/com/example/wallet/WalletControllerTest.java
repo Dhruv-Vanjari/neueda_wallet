@@ -1,8 +1,11 @@
 package com.example.wallet;
 
 import com.example.wallet.model.Transaction;
+import com.example.wallet.model.User;
 import com.example.wallet.model.Wallet;
 import com.example.wallet.model.TransactionType;
+import com.example.wallet.service.UserServiceImpl;
+import com.example.wallet.service.WalletServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,20 +25,31 @@ public class WalletControllerTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
+    @Autowired
+    private WalletServiceImpl walletService;
+
+    @Autowired
+    private UserServiceImpl userService;
+
 
     @DirtiesContext
     @Test
     public void testCreateWallet() {
         Wallet wallet = new Wallet("icici1", 156L, "INR", 1231234L);
-        ResponseEntity<Boolean> response = restTemplate.postForEntity("/api/wallets", wallet, Boolean.class);
+       // walletService.createWallet(wallet);
+      //  User user = new User(1231234L, "John Doe", "john.doe@example.com", "password");
+       // userService.createUser(user);
+        ResponseEntity<User> response1 = restTemplate.getForEntity("/api/users/1231234L", User.class);
+        ResponseEntity<Wallet> response = restTemplate.postForEntity("/api/wallets", wallet, Wallet.class);
 
-        // Debugging
-        System.out.println("Response Status Code: " + response.getStatusCode());
-        System.out.println("Response Body: " + response.getBody());
 
-        // Assertions
+
         assertThat(response.getStatusCode().is2xxSuccessful()).isTrue();
-        assertThat(response.getBody()).isEqualTo(true);
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().getId()).isEqualTo(156L);
+        assertThat(response.getBody().getName()).isEqualTo("icici1");
+        assertThat(response.getBody().getCurrency()).isEqualTo("INR");
+      //  assertThat(response.getBody().getUserId()).isEqualTo(1231234L);
     }
 
     @DirtiesContext

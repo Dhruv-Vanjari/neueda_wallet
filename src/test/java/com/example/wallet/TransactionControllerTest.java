@@ -61,7 +61,7 @@ public class TransactionControllerTest {
 
     @Test
     public void testTransfer() {
-        String url = "http://localhost:" + 6000 + "/transactions/transfer?fromWalletId=45456&toWalletId=56567&amount=20";
+        String url = "http://localhost:" + port + "/transactions/transfer?fromWalletId=45456&toWalletId=56567&amount=20";
         ResponseEntity<Transaction> response = restTemplate.postForEntity(url, null, Transaction.class);
 
         assertThat(response.getStatusCodeValue()).isEqualTo(200);

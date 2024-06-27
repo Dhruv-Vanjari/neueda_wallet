@@ -22,12 +22,12 @@ public class WalletServiceImpl implements WalletServiceInterface {
     UserServiceImpl userService;
 
     @Override
-    public Boolean createWallet(Wallet wallet) {
+    public Wallet createWallet(Wallet wallet) {
         walletsList.add(wallet);
 
         userService.addWalletToUser(wallet.getUserId(), wallet);
 
-        return true;
+        return wallet;
     }
 
     @Override

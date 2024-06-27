@@ -18,9 +18,9 @@ public class WalletController {
     private WalletServiceImpl walletService;
 
     @PostMapping
-    public ResponseEntity<Boolean> createWallet(@RequestBody Wallet wallet) {
-        Boolean created = walletService.createWallet(wallet);
-        return ResponseEntity.ok(created);
+    public ResponseEntity<Wallet> createWallet(@RequestBody Wallet wallet) {
+        Wallet createdWallet = walletService.createWallet(wallet);
+        return ResponseEntity.ok(createdWallet);
     }
 
     @DeleteMapping("/{walletId}")
