@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface WalletServiceInterface {
 
-    Boolean createWallet(Wallet wallet);
+    Wallet createWallet(Wallet wallet);
     void deleteWallet(Long walletId);
 
     Integer getBalance(Long walletId);
